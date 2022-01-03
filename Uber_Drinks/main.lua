@@ -29,6 +29,8 @@ local hitCharacter
 local character
 local lifeTxt
 local life
+local speed = 0
+
 
 
 
@@ -68,28 +70,43 @@ end
 
 --Function Enemy
 
+local pic1="Images/enemy_01.png"
+local pic2="Images/addlife.png"
+local enemypics = {pic1,pic2}
+
+
 function characterEnemy()    
-	if life > 0 then
-        local enemy = display.newImage("Images/enemy_01.png");
+	if life > 0 then       
+	    local enemy = display.newImage(enemypics[math.random (#enemypics)])
         enemy:scale(0.3,0.3)
         enemy:addEventListener('tap', drinkSmash)
+        
+        
         if math.random(2)==1 then
             enemy.y = math.random(-100, -10)
         else
             enemy.x = math.random(display.contentWidth+10, display.contentWidth +100)
         end
         enemy.y = math.random(display.contentHeight)
-        enemy.trans = transition.to(enemy,{ x= centerX, y= centerY, time=3500, onComplete=hitCharacter});
+        enemy.trans = transition.to(enemy,{ x= centerX, y= centerY, time=math.random(2500-speed, 4500-speed), onComplete=hitCharacter})
+        speed = speed + 50       
 	end
-        --Tem de levar as garrafas de água para dar vida
-
 end
 
 
 
+
+
 function removeLife(num)
-    life = life - num
-    lifeObj.text = life
+    if enemypics[pic2] then
+        life = life + num
+        lifeObj.text = life 
+    else
+        life = life - num
+        lifeObj.text = life    
+    end
+    
+    
 end
 
 function resetLife()
