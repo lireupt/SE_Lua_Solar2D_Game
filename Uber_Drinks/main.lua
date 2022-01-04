@@ -14,13 +14,13 @@
 --Game Title : Uber Drinks! the original game
 --Game goals: Avoid drinking too many alcoholic drinks, if drinking water regains sanity, or else go to the hospital :D
 
---stuff
+
 
 display.setStatusBar(display.HiddenStatusBar);
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
--- references
+-- References
 local characterEnemy
 local gameTitle
 local scoreText
@@ -29,22 +29,18 @@ local hitCharacter
 local character
 local lifeTxt
 local life
-local speed = 0
+local speed=0
 
 
-
-
--- pre load audio files 
-
+-- Pre load audio files 
 local sndBlast = audio.loadSound("audio/Small_Burp_1.mp3")
 local sndSmash = audio.loadSound("audio/Big_1.mp3") --audio from https://www.fesliyanstudios.com/
 local sndLose = audio.loadSound()
 
 local ambtSound = audio.loadStream("mix.wav",'audio')
 
--- function play screen
-function createPlayScreen()
-    
+-- Function play screen
+function createPlayScreen()   
     local backGround = display.newImage("Images/backGround.png")
     --backGround.y = 130
     backGround.alpha = 0
@@ -52,9 +48,7 @@ function createPlayScreen()
     character= display.newImage("Images/1.png")
     character.x = centerX;
     character.y = display.contentHeight + 50
-    character.alpha = 0
-
-      
+    character.alpha = 0      
     local function showTitle()
         gameTitle = display.newImage("Images/title.png")
         gameTitle.x = centerX
@@ -67,21 +61,13 @@ end
 showTitle()
 end
    
-
 --Function Enemy
-
-local pic1="Images/enemy_01.png"
-local pic2="Images/addlife.png"
-local enemypics = {pic1,pic2}
-
-
 function characterEnemy()    
-	if life > 0 then       
+	if life > 0 then 
+        local enemypics = {"Images/enemy_01.png","Images/addlife.png"}     
 	    local enemy = display.newImage(enemypics[math.random (#enemypics)])
         enemy:scale(0.3,0.3)
-        enemy:addEventListener('tap', drinkSmash)
-        
-        
+        enemy:addEventListener('tap', drinkSmash)        
         if math.random(2)==1 then
             enemy.y = math.random(-100, -10)
         else
@@ -93,22 +79,13 @@ function characterEnemy()
 	end
 end
 
-
-
-
-
-function removeLife(num)
-    if enemypics[pic2] then
-        life = life + num
-        lifeObj.text = life 
-    else
-        life = life - num
-        lifeObj.text = life    
-    end
-    
-    
+--Function remove life
+function removeLife(num)   
+    life = life - num
+    lifeObj.text = life     
 end
 
+--Function reset life
 function resetLife()
     life = 5
 end
@@ -176,14 +153,14 @@ function drinkSmash(event)
     return true
 end
 
---function visible
+--Function visible
 function chrtrLife()	
 	if life == 0 then
 		stopGame()
 	end
 end
 
---function stop Game
+--Function stop Game
 function stopGame()	
 	--audio.play(soundLose)
 	local background = display.newImage("Images/gameOver.jpg")
