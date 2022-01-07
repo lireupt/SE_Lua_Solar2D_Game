@@ -31,16 +31,14 @@ local lifeTxt
 local life
 local speed=0
 
-
 -- Pre load audio files --audio from https://www.fesliyanstudios.com/
 local sndBlast = audio.loadSound("audio/Small_Burp_1.mp3")
 local sndSmash = audio.loadSound("audio/Big_1.mp3") 
 local sndLose = audio.loadSound("audio/game-lose-sound.mp3")
 
-
 -- Pre load ambinet audio  
---local musicTrack = audio.loadStream( "audio/ambientSo2.mp3")
-local musicTrack = audio.loadStream( "audio/ambientSound.mp3")
+local musicTrack = audio.loadStream( "audio/ambientSo2.mp3")
+--local musicTrack = audio.loadStream( "audio/ambientSound.mp3")
 audio.reserveChannels( 1 )
 audio.setVolume( 0.3, { channel=1 } )
 
@@ -182,7 +180,7 @@ function stopGame()
 	local text = display.newText( "Tap here to restart !!", 0, 0, "Helvetica", 24 )
     text.x = centerX
     text.y = display.contentHeight-30      
-	text:addEventListener ( "tap", createPlayScreen)      
+	text:addEventListener ( "tap", createPlayScreen)     
 end
 
 createPlayScreen()
